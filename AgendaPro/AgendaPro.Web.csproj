@@ -22,8 +22,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Eventos.Application\AgendaPro.Application.csproj" />
-    <ProjectReference Include="..\Eventos.Infra\AgendaPro.Infra.csproj" />
+    <ProjectReference Include="..\AgendaPro.Application\AgendaPro.Application.csproj" />
+    <ProjectReference Include="..\AgendaPro.Infra\AgendaPro.Infra.csproj" />
   </ItemGroup>
 
 </Project>
