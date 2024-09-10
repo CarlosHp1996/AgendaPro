@@ -15,9 +15,11 @@ namespace AgendaPro.Infra.Data
 
         }
 
-        public DbSet<Usuario> Usuarios { get; set; }
-        public DbSet<Evento> Eventos { get; set; }
-        public DbSet<Tarefa> Tarefas { get; set; }
-        public DbSet<Lembrete> Lembretes { get; set; }
+        public virtual DbSet<Usuario> Usuarios { get; set; }
+        public virtual DbSet<Evento> Eventos { get; set; }
+        public virtual DbSet<Tarefa> Tarefas { get; set; }
+        public virtual DbSet<Lembrete> Lembretes { get; set; }
+        public virtual DbSet< AspNetUsers> AspNetUsers { get; set; }
+        public virtual DbSet<AspNetUsersRefreshToken> AspNetUsersRefreshToken { get; set; }
     }
 }

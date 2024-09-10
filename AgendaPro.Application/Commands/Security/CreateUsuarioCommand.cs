@@ -1,9 +1,9 @@
-﻿using AgendaPro.Application.Models.Requests;
-using AgendaPro.Application.Models.Responses;
+﻿using AgendaPro.Application.Models.Requests.Security;
+using AgendaPro.Application.Models.Responses.Security;
 using AgendaPro.Domain.Helpers;
 using MediatR;
 
-namespace AgendaPro.Application.Commands
+namespace AgendaPro.Application.Commands.Security
 {
     public class CreateUsuarioCommand : IRequest<Result<CreateUsuarioResponse>>
     {

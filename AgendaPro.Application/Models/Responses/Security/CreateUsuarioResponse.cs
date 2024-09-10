@@ -1,4 +1,4 @@
-﻿namespace AgendaPro.Application.Models.Responses
+﻿namespace AgendaPro.Application.Models.Responses.Security
 {
     public class CreateUsuarioResponse
     {

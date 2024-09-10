@@ -17,4 +17,8 @@
     <ProjectReference Include="..\AgendaPro.Domain\AgendaPro.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
+
 </Project>

@@ -1,19 +1,17 @@
-﻿using AutoMapper;
-using AgendaPro.Application.Models.Responses;
+﻿using AgendaPro.Application.Models.Responses.Security;
 using AgendaPro.Domain.Entities.Security;
 using AgendaPro.Domain.Helpers;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 
-namespace AgendaPro.Application.Commands.Handlers
+namespace AgendaPro.Application.Commands.Security.Handlers
 {
     public class CreateUsuarioCommandHandler : IRequestHandler<CreateUsuarioCommand, Result<CreateUsuarioResponse>>
     {
         private ApplicationUser _applicationUser;
         private UserManager<ApplicationUser> _userManager;
-        private readonly IMapper _mapper;
 
-        public CreateUsuarioCommandHandler(UserManager<ApplicationUser> userManager, IMapper Mapper)
+        public CreateUsuarioCommandHandler(UserManager<ApplicationUser> userManager)
         {
             _userManager = userManager;
         }

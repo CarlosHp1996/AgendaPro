@@ -1,4 +1,4 @@
-﻿namespace AgendaPro.Application.Models.Requests
+﻿namespace AgendaPro.Application.Models.Requests.Security
 {
     public class CreateUsuarioRequest
     {
