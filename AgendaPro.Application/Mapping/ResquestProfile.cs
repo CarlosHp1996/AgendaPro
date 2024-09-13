@@ -1,4 +1,6 @@
-﻿using AutoMapper;
+﻿using AgendaPro.Application.Models.Requests.Eventos;
+using AgendaPro.Domain.Entities;
+using AutoMapper;
 
 namespace AgendaPro.Application.Mapping
 {
@@ -6,6 +8,7 @@ namespace AgendaPro.Application.Mapping
     {
         public ResquestProfile() 
         {
+            CreateMap<CreateEventoRequest, Evento>();
         }
     }
 }

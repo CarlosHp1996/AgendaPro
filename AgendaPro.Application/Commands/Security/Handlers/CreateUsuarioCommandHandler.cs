@@ -39,7 +39,7 @@ namespace AgendaPro.Application.Commands.Security.Handlers
                 Nome = _applicationUser.UserName,
                 Email = _applicationUser.Email,
                 Telefone = _applicationUser.PhoneNumber,
-                Message = "Usuário criado com sucesso"
+                Mensagem = "Usuário criado com sucesso"
             };
 
             result.Count = 1;

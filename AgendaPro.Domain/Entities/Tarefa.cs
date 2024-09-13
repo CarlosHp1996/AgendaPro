@@ -2,10 +2,10 @@
 {
     public class Tarefa
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public string Nome { get; set; }
-        public bool IsCompleted { get; set; }
-        public int EventoId { get; set; }
+        public bool TarefaCompleta { get; set; }
+        public Guid EventoId { get; set; }
         public Evento Evento { get; set; }
     }
 }

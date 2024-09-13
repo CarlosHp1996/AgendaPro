@@ -15,7 +15,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Adicionar serviços ao contêiner
 builder.Services.AddControllersWithViews();
-builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
+builder.Services.AddScoped<IEventoRepository, EventoRepository>();
 builder.Services.AddScoped<AccessManager>();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddDbContext<AppDbContext>(options =>
@@ -101,11 +101,15 @@ builder.Services.AddSwaggerGen(c =>
 var app = builder.Build();
 
 // Configurar o pipeline de requisições HTTP
-app.UseSwagger();
+if (app.Environment.IsDevelopment())
+    app.UseDeveloperExceptionPage();
+
+    app.UseSwagger();
 app.UseSwaggerUI(c =>
 {
     c.SwaggerEndpoint("/swagger/v1/swagger.json", "AgendaPro API v1");
-    c.RoutePrefix = string.Empty;
+    //c.RoutePrefix = string.Empty;
+    c.RoutePrefix = "swagger";
 });
 
 app.UseHttpsRedirection();

@@ -24,16 +24,21 @@ namespace AgendaPro.Infra.Migrations
 
             modelBuilder.Entity("AgendaPro.Domain.Entities.Evento", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("uniqueidentifier");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    b.Property<DateTime>("DataFim")
+                        .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("Data")
+                    b.Property<DateTime>("DataInicio")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Descricao")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Local")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -41,35 +46,37 @@ namespace AgendaPro.Infra.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("UsuarioId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("UsuarioId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
                     b.HasIndex("UsuarioId");
 
-                    b.ToTable("Eventos");
+                    b.ToTable("Evento", (string)null);
                 });
 
             modelBuilder.Entity("AgendaPro.Domain.Entities.Lembrete", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("uniqueidentifier");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    b.Property<string>("Descricao")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("EventoId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("EventoId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("ReminderTime")
+                    b.Property<DateTime>("HoraLembrete")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
                     b.HasIndex("EventoId");
 
-                    b.ToTable("Lembretes");
+                    b.ToTable("Lembrete", (string)null);
                 });
 
             modelBuilder.Entity("AgendaPro.Domain.Entities.Security.ApplicationUser", b =>
@@ -177,52 +184,25 @@ namespace AgendaPro.Infra.Migrations
 
             modelBuilder.Entity("AgendaPro.Domain.Entities.Tarefa", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("uniqueidentifier");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("EventoId")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("IsCompleted")
-                        .HasColumnType("bit");
+                    b.Property<Guid>("EventoId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("TarefaCompleta")
+                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 
                     b.HasIndex("EventoId");
 
-                    b.ToTable("Tarefas");
-                });
-
-            modelBuilder.Entity("AgendaPro.Domain.Entities.Usuario", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Nome")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PasswordHash")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Usuarios");
+                    b.ToTable("Tarefa", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<System.Guid>", b =>
@@ -365,8 +345,8 @@ namespace AgendaPro.Infra.Migrations
 
             modelBuilder.Entity("AgendaPro.Domain.Entities.Evento", b =>
                 {
-                    b.HasOne("AgendaPro.Domain.Entities.Usuario", "Usuario")
-                        .WithMany("Eventos")
+                    b.HasOne("AgendaPro.Domain.Entities.Security.AspNetUsers", "Usuario")
+                        .WithMany()
                         .HasForeignKey("UsuarioId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -377,7 +357,7 @@ namespace AgendaPro.Infra.Migrations
             modelBuilder.Entity("AgendaPro.Domain.Entities.Lembrete", b =>
                 {
                     b.HasOne("AgendaPro.Domain.Entities.Evento", "Evento")
-                        .WithMany("Reminders")
+                        .WithMany("Lembretes")
                         .HasForeignKey("EventoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -460,14 +440,9 @@ namespace AgendaPro.Infra.Migrations
 
             modelBuilder.Entity("AgendaPro.Domain.Entities.Evento", b =>
                 {
-                    b.Navigation("Reminders");
+                    b.Navigation("Lembretes");
 
                     b.Navigation("Tarefas");
-                });
-
-            modelBuilder.Entity("AgendaPro.Domain.Entities.Usuario", b =>
-                {
-                    b.Navigation("Eventos");
                 });
 
             modelBuilder.Entity("AgendaPro.Domain.Entities.Security.AspNetUsers", b =>

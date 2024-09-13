@@ -52,21 +52,6 @@ namespace AgendaPro.Infra.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Usuarios",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Nome = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Usuarios", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -195,64 +180,64 @@ namespace AgendaPro.Infra.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Eventos",
+                name: "Evento",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Titulo = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Data = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Descricao = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UsuarioId = table.Column<int>(type: "int", nullable: false)
+                    DataInicio = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DataFim = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Local = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UsuarioId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Eventos", x => x.Id);
+                    table.PrimaryKey("PK_Evento", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Eventos_Usuarios_UsuarioId",
+                        name: "FK_Evento_AspNetUsers_UsuarioId",
                         column: x => x.UsuarioId,
-                        principalTable: "Usuarios",
+                        principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Lembretes",
+                name: "Lembrete",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ReminderTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    EventoId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Descricao = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    HoraLembrete = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    EventoId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Lembretes", x => x.Id);
+                    table.PrimaryKey("PK_Lembrete", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Lembretes_Eventos_EventoId",
+                        name: "FK_Lembrete_Evento_EventoId",
                         column: x => x.EventoId,
-                        principalTable: "Eventos",
+                        principalTable: "Evento",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Tarefas",
+                name: "Tarefa",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Nome = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    IsCompleted = table.Column<bool>(type: "bit", nullable: false),
-                    EventoId = table.Column<int>(type: "int", nullable: false)
+                    TarefaCompleta = table.Column<bool>(type: "bit", nullable: false),
+                    EventoId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Tarefas", x => x.Id);
+                    table.PrimaryKey("PK_Tarefa", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Tarefas_Eventos_EventoId",
+                        name: "FK_Tarefa_Evento_EventoId",
                         column: x => x.EventoId,
-                        principalTable: "Eventos",
+                        principalTable: "Evento",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -302,18 +287,18 @@ namespace AgendaPro.Infra.Migrations
                 column: "AspNetUsersId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Eventos_UsuarioId",
-                table: "Eventos",
+                name: "IX_Evento_UsuarioId",
+                table: "Evento",
                 column: "UsuarioId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Lembretes_EventoId",
-                table: "Lembretes",
+                name: "IX_Lembrete_EventoId",
+                table: "Lembrete",
                 column: "EventoId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Tarefas_EventoId",
-                table: "Tarefas",
+                name: "IX_Tarefa_EventoId",
+                table: "Tarefa",
                 column: "EventoId");
         }
 
@@ -339,22 +324,19 @@ namespace AgendaPro.Infra.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Lembretes");
+                name: "Lembrete");
 
             migrationBuilder.DropTable(
-                name: "Tarefas");
+                name: "Tarefa");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
+                name: "Evento");
+
+            migrationBuilder.DropTable(
                 name: "AspNetUsers");
-
-            migrationBuilder.DropTable(
-                name: "Eventos");
-
-            migrationBuilder.DropTable(
-                name: "Usuarios");
         }
     }
 }

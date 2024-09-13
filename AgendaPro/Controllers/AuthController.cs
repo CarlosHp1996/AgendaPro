@@ -18,6 +18,7 @@ namespace AgendaPro.Web.Controllers
             _mediator = mediator;
         }
 
+        [AllowAnonymous]
         [HttpPost("create")]
         public async Task<IActionResult> Create([FromBody] CreateUsuarioRequest request)
         {
@@ -34,9 +35,9 @@ namespace AgendaPro.Web.Controllers
 
         [AllowAnonymous]
         [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] CreateLoginRequest usuario)
+        public async Task<IActionResult> Login([FromBody] CreateLoginRequest request)
         {
-            var command = new CreateLoginCommand(usuario);
+            var command = new CreateLoginCommand(request);
             var response = await _mediator.Send(command);
 
             return Ok(response);

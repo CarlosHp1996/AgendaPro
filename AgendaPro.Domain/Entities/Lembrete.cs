@@ -2,9 +2,10 @@
 {
     public class Lembrete
     {
-        public int Id { get; set; }
-        public DateTime ReminderTime { get; set; }
-        public int EventoId { get; set; }
+        public Guid Id { get; set; }
+        public string Descricao { get; set; }
+        public DateTime HoraLembrete { get; set; }
+        public Guid EventoId { get; set; }
         public Evento Evento { get; set; }
     }
 }

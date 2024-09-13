@@ -1,4 +1,8 @@
-﻿using AutoMapper;
+﻿using AgendaPro.Application.Models.Responses.Eventos;
+using AgendaPro.Application.Models.Responses.Lembretes;
+using AgendaPro.Application.Models.Responses.Tarefas;
+using AgendaPro.Domain.Entities;
+using AutoMapper;
 
 namespace AgendaPro.Application.Mapping
 {
@@ -6,6 +10,9 @@ namespace AgendaPro.Application.Mapping
     {
         public ResponseProfile()
         {
+            CreateMap<Evento, CreateEventoResponse>();
+            CreateMap<Tarefa, CreateTarefaResponse>(); 
+            CreateMap<Lembrete, CreateLembreteResponse>();
         }
     }
 }
