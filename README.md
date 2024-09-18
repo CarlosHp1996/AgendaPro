@@ -20,7 +20,7 @@
 
  ## 📝 Processo de desenvolvimento 
   <div style="display: inline_block">
-    1 - Implementando a estrutura inicial do projeto, implementando a configuração da base de dados, criação da primeira migration, automapper, helpers e criação da api de cadastro de usuário ✅ <br><br>
-    2 - Implementando a criação da api de login do usuário, criação do jwt, verificação do token, implementando o swagger para a documentação do projeto e testando as chamadas com o bearer token ✅ <br><br>
-    3 - 
+    1 - Implementando a estrutura inicial do projeto, implementando a configuração da base de dados, criação da primeira migration, automapper, helpers e criação da api de cadastro de usuário. ✅ <br><br>
+    2 - Implementando a criação da api de login do usuário, criação do jwt, verificação do token, implementando o swagger para a documentação do projeto e testando as chamadas com o bearer token. ✅ <br><br>
+    3 - Criação da api de cadastro de eventos, ajustes nas configurações de inicialização, criação de um repositório base genérico que define operações básicas de um CRUD para utilizar nos métodos padrões do projeto, mapeamento das requests e responses, refatoração das entidades, mapeando o relacionamento entre as entidades, foi necessário recriar as migrações para evitar conflitos. ✅ <br><br>
 </div><br>
