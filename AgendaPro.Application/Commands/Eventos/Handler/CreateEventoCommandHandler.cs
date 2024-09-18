@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace AgendaPro.Application.Commands.Eventos.Handler
 {
-    public class CreateEventoCommandHandler : IRequestHandler<CreateEventoCommand, Result<CreateEventoResponse>>
+    public class CreateEventoCommandHandler : IRequestHandler<CreateEventoCommand, Result<EventoResponse>>
     {
         private readonly IEventoRepository _eventoRepository;
         private readonly UserManager<ApplicationUser> _userManager;
@@ -23,9 +23,9 @@ namespace AgendaPro.Application.Commands.Eventos.Handler
             _mapper = mapper;
         }
 
-        public async Task<Result<CreateEventoResponse>> Handle(CreateEventoCommand request, CancellationToken cancellationToken)
+        public async Task<Result<EventoResponse>> Handle(CreateEventoCommand request, CancellationToken cancellationToken)
         {
-            var result = new Result<CreateEventoResponse>();
+            var result = new Result<EventoResponse>();
 
             var user = await _userManager.FindByIdAsync(request.Request.UsuarioId); // O id será pego através do get
             if (user == null)
@@ -60,7 +60,7 @@ namespace AgendaPro.Application.Commands.Eventos.Handler
             //result.Count = 1;
             //return result;
 
-            var response = new CreateEventoResponse
+            var response = new EventoResponse
             {
                 Id = item.Id,
                 Titulo = item.Titulo,

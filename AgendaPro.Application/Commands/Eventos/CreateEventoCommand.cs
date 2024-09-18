@@ -5,7 +5,7 @@ using MediatR;
 
 namespace AgendaPro.Application.Commands.Eventos
 {
-    public class CreateEventoCommand : IRequest<Result<CreateEventoResponse>>
+    public class CreateEventoCommand : IRequest<Result<EventoResponse>>
     {
         public CreateEventoRequest Request;
         public CreateEventoCommand(CreateEventoRequest request)

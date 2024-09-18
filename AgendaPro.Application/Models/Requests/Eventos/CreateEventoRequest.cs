@@ -5,7 +5,7 @@ namespace AgendaPro.Application.Models.Requests.Eventos
 {
     public class CreateEventoRequest
     {
-        public string UsuarioId { get; set; }
+        public string? UsuarioId { get; set; }
         public string Titulo { get; set; }
         public string Descricao { get; set; }
         public DateTime DataInicio { get; set; }

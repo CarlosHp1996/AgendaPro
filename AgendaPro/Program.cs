@@ -96,6 +96,9 @@ builder.Services.AddSwaggerGen(c =>
             new string[] {}
         }
     });
+
+    // Adiciona suporte a anotações
+    c.EnableAnnotations();
 });
 
 var app = builder.Build();

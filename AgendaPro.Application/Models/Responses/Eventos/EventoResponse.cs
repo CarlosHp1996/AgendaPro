@@ -1,6 +1,6 @@
 ﻿namespace AgendaPro.Application.Models.Responses.Eventos
 {
-    public class CreateEventoResponse
+    public class EventoResponse
     {
         public Guid Id { get; set; }
         public string Titulo { get; set; }

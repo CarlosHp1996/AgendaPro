@@ -1,8 +1,234 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Eventos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #F5F5F5;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+        .container {
+            width: 90%;
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #FF3B3B;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #FF3B3B;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+            button:hover {
+                background-color: #D32F2F;
+            }
+
+        .task-reminder-container {
+            background-color: #FFCDD2;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+
+            .task-reminder-container h3 {
+                margin-top: 0;
+                color: #FF3B3B;
+            }
+
+        .task-reminder-input {
+            display: flex;
+            margin-bottom: 10px;
+        }
+
+            .task-reminder-input input {
+                flex-grow: 1;
+                margin-right: 10px;
+                margin-bottom: 0;
+            }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            background-color: white;
+            padding: 5px 10px;
+            margin-bottom: 5px;
+            border-radius: 3px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .remove-btn {
+            background-color: transparent;
+            color: #FF3B3B;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            padding: 0 5px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Cadastro de Evento</h1>
+        <form id="eventoForm">
+            <label for="titulo">Título do Evento</label>
+            <input type="text" id="titulo" name="titulo" required>
+
+            <label for="descricao">Descrição</label>
+            <textarea id="descricao" name="descricao" required></textarea>
+
+            <label for="dataInicio">Data de Início</label>
+            <input type="datetime-local" id="dataInicio" name="dataInicio" required>
+
+            <label for="dataFim">Data de Fim</label>
+            <input type="datetime-local" id="dataFim" name="dataFim" required>
+
+            <div class="task-reminder-container">
+                <h3>Tarefas</h3>
+                <div class="task-reminder-input">
+                    <input type="text" id="tarefa" name="tarefa" placeholder="Adicione uma tarefa">
+                    <button type="button" onclick="adicionarTarefa()">Adicionar</button>
+                </div>
+                <ul id="listaTarefas"></ul>
+            </div>
+
+            <div class="task-reminder-container">
+                <h3>Lembretes</h3>
+                <div class="task-reminder-input">
+                    <input type="text" id="lembrete" name="lembrete" placeholder="Adicione um lembrete">
+                    <button type="button" onclick="adicionarLembrete()">Adicionar</button>
+                </div>
+                <ul id="listaLembretes"></ul>
+            </div>
+
+            <button type="submit" class="submit-btn">Cadastrar Evento</button>
+        </form>
+    </div>
+
+    <script>
+        let tarefas = [];
+        let lembretes = [];
+
+        function adicionarTarefa() {
+            const tarefaInput = document.getElementById("tarefa");
+            if (tarefaInput.value.trim()) {
+                tarefas.push(tarefaInput.value.trim());
+                atualizarLista('listaTarefas', tarefas);
+                tarefaInput.value = '';
+            }
+        }
+
+        function adicionarLembrete() {
+            const lembreteInput = document.getElementById("lembrete");
+            if (lembreteInput.value.trim()) {
+                lembretes.push(lembreteInput.value.trim());
+                atualizarLista('listaLembretes', lembretes);
+                lembreteInput.value = '';
+            }
+        }
+
+        function atualizarLista(listaId, items) {
+            const lista = document.getElementById(listaId);
+            lista.innerHTML = items.map((item, index) => `
+                                <li>
+                                    ${item}
+                                    <button type="button" class="remove-btn" onclick="removerItem('${listaId}', ${index})">×</button>
+                                </li>
+                            `).join('');
+        }
+
+        function removerItem(listaId, index) {
+            if (listaId === 'listaTarefas') {
+                tarefas.splice(index, 1);
+                atualizarLista('listaTarefas', tarefas);
+            } else {
+                lembretes.splice(index, 1);
+                atualizarLista('listaLembretes', lembretes);
+            }
+        }
+
+        document.getElementById('eventoForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const evento = {
+                titulo: document.getElementById('titulo').value,
+                descricao: document.getElementById('descricao').value,
+                dataInicio: document.getElementById('dataInicio').value,
+                dataFim: document.getElementById('dataFim').value,
+                tarefas: tarefas,
+                lembretes: lembretes
+            };
+
+            fetch('https://localhost:44366/api/eventos/create', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + localStorage.getItem('token')
+                },
+                body: JSON.stringify(evento)
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Falha na requisição');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    alert('Evento cadastrado com sucesso!');
+                    document.getElementById('eventoForm').reset();
+                    tarefas = [];
+                    lembretes = [];
+                    atualizarLista('listaTarefas', tarefas);
+                    atualizarLista('listaLembretes', lembretes);
+                })
+                .catch(error => {
+                    alert('Erro ao cadastrar o evento: ' + error.message);
+                });
+        });
+    </script>
+</body>
+</html>

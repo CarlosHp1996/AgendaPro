@@ -1,15 +1,19 @@
 ﻿using AgendaPro.Application.Interfaces;
+using AgendaPro.Domain.Helpers;
 using AgendaPro.Infra.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace AgendaPro.Infra.Repositories
 {
     public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : class
     {
         private readonly AppDbContext _dbContext;
+        private readonly DbSet<TEntity> _entities;
 
         public BaseRepository(AppDbContext dbContext)
         {
             _dbContext = dbContext;
+            _entities = dbContext.Set<TEntity>();
         }
 
         public virtual async Task<TEntity> GetById(Guid id)
@@ -17,33 +21,33 @@ namespace AgendaPro.Infra.Repositories
             return await _dbContext.Set<TEntity>().FindAsync(id);
         }
 
-        //public virtual async Task<AsyncOutResult<IEnumerable<TEntity>, int>> GetAll(int? take, int? offSet, string sortingProp, bool? asc)
-        //{
-        //    var query = _dbContext.Set<TEntity>().AsQueryable();
+        public virtual async Task<AsyncOutResult<IEnumerable<TEntity>, int>> GetAll(int? take, int? offSet, string sortingProp, bool? asc)
+        {
+            var query = _dbContext.Set<TEntity>().AsQueryable();
 
-        //    if (!string.IsNullOrEmpty(sortingProp) && asc != null)
-        //        if (DataHelpers.CheckExistingProperty<TEntity>(sortingProp))
-        //            query = query.OrderByDynamic(sortingProp, (bool)asc);
+            if (!string.IsNullOrEmpty(sortingProp) && asc != null)
+                if (DataHelpers.CheckExistingProperty<TEntity>(sortingProp))
+                    query = query.OrderByDynamic(sortingProp, (bool)asc);
 
-        //    if (take != null && offSet != null)
-        //        return new AsyncOutResult<IEnumerable<TEntity>, int>(await query.Skip((int)offSet).Take((int)take).ToListAsync(), await query.CountAsync());
+            if (take != null && offSet != null)
+                return new AsyncOutResult<IEnumerable<TEntity>, int>(await query.Skip((int)offSet).Take((int)take).ToListAsync(), await query.CountAsync());
 
-        //    return new AsyncOutResult<IEnumerable<TEntity>, int>(await query.ToListAsync(), await query.CountAsync());
-        //}
+            return new AsyncOutResult<IEnumerable<TEntity>, int>(await query.ToListAsync(), await query.CountAsync());
+        }
 
-        //public virtual async Task<IEnumerable<TEntity>> Get(int? take, int? offSet, string sortingProp, bool? asc)
-        //{
-        //    var query = _dbContext.Set<TEntity>().AsQueryable();
+        public virtual async Task<IEnumerable<TEntity>> Get(int? take, int? offSet, string sortingProp, bool? asc)
+        {
+            var query = _dbContext.Set<TEntity>().AsQueryable();
 
-        //    if (!string.IsNullOrEmpty(sortingProp) && asc != null)
-        //        if (DataHelpers.CheckExistingProperty<TEntity>(sortingProp))
-        //            query = query.OrderByDynamic(sortingProp, (bool)asc);
+            if (!string.IsNullOrEmpty(sortingProp) && asc != null)
+                if (DataHelpers.CheckExistingProperty<TEntity>(sortingProp))
+                    query = query.OrderByDynamic(sortingProp, (bool)asc);
 
-        //    if (take != null && offSet != null)
-        //        return await query.Skip((int)offSet).Take((int)take).ToListAsync();
+            if (take != null && offSet != null)
+                return await query.Skip((int)offSet).Take((int)take).ToListAsync();
 
-        //    return await query.ToListAsync();
-        //}
+            return await query.ToListAsync();
+        }
 
         public virtual async Task<TEntity> AddAsync(TEntity entity)
         {
@@ -97,7 +101,7 @@ namespace AgendaPro.Infra.Repositories
                 var result = await _dbContext.SaveChangesAsync();
                 return result > 0;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return false;
             }
@@ -116,6 +120,37 @@ namespace AgendaPro.Infra.Repositories
             {
                 return false;
             }
+        }
+
+        public async Task<AsyncOutResult<IEnumerable<TEntity>, int>> PaginateAsync(
+     int? take,
+     int? offSet,
+     string sortingProp,
+     bool? asc)
+        {
+            IQueryable<TEntity> query = _entities.AsQueryable();
+
+            if (!string.IsNullOrEmpty(sortingProp) && asc.HasValue)
+            {
+                if (DataHelpers.CheckExistingProperty<TEntity>(sortingProp))
+                {
+                    query = query.OrderByDynamic(sortingProp, asc.Value);
+                }
+            }
+
+            // Contando os itens totais
+            var totalItems = await query.CountAsync();
+
+            // Aplicando a paginação
+            if (take.HasValue && offSet.HasValue)
+            {
+                query = query.Skip(offSet.Value).Take(take.Value);
+            }
+
+            // Retornando a lista paginada
+            var result = await query.ToListAsync();
+
+            return new AsyncOutResult<IEnumerable<TEntity>, int>(result, totalItems);
         }
 
     }

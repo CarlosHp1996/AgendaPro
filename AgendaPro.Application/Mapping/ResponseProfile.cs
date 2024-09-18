@@ -10,7 +10,7 @@ namespace AgendaPro.Application.Mapping
     {
         public ResponseProfile()
         {
-            CreateMap<Evento, CreateEventoResponse>();
+            CreateMap<Evento, EventoResponse>();
             CreateMap<Tarefa, CreateTarefaResponse>(); 
             CreateMap<Lembrete, CreateLembreteResponse>();
         }

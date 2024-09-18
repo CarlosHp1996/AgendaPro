@@ -1,8 +1,13 @@
 ﻿using AgendaPro.Application.Commands.Eventos;
+using AgendaPro.Application.Models.Filters;
 using AgendaPro.Application.Models.Requests.Eventos;
+using AgendaPro.Application.Models.Responses.Eventos;
+using AgendaPro.Application.Queries.Eventos;
+using AgendaPro.Domain.Helpers;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace AgendaPro.Web.Controllers
 {
@@ -18,13 +23,32 @@ namespace AgendaPro.Web.Controllers
             _mediator = mediator;
         }
 
+        [SwaggerOperation(
+             Summary = "Criar Evento",
+             Description = "Todos os campos são obrigatórios.")]
+        [SwaggerResponse(200, "Sucesso", typeof(Result<EventoResponse>))]
         [HttpPost("create")]
-        public async Task<IActionResult> CreateEvento(CreateEventoRequest request)
+        [AllowAnonymous]
+        public async Task<IActionResult> Create(CreateEventoRequest request)
         {
             var command = new CreateEventoCommand(request);
             var response = await _mediator.Send(command);
 
             return Ok(response);          
+        }
+
+        [SwaggerOperation(
+             Summary = "Listar todos os eventos",
+             Description = "Listar todos os eventos de forma paginada.")]
+        [SwaggerResponse(200, "Sucesso", typeof(Result<EventoResponse>))]
+        [HttpGet]
+        [AllowAnonymous]        
+        public async Task<IActionResult> Get([FromQuery]GetEventosRequestFilter filter)
+        {
+            var command = new GetEventosQuery(filter);
+            var response = await _mediator.Send(command);
+
+            return Ok(response);
         }
     }
 }

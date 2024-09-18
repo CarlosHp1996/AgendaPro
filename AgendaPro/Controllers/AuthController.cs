@@ -1,8 +1,11 @@
 ﻿using AgendaPro.Application.Commands.Security;
 using AgendaPro.Application.Models.Requests.Security;
+using AgendaPro.Application.Models.Responses.Security;
+using AgendaPro.Domain.Helpers;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace AgendaPro.Web.Controllers
 {
@@ -18,8 +21,12 @@ namespace AgendaPro.Web.Controllers
             _mediator = mediator;
         }
 
-        [AllowAnonymous]
+        [SwaggerOperation(
+              Summary = "Criar usuário",
+              Description = "Criação de um novo usuário.")]
+        [SwaggerResponse(200, "Sucesso", typeof(Result<CreateUsuarioResponse>))]
         [HttpPost("create")]
+        [AllowAnonymous]        
         public async Task<IActionResult> Create([FromBody] CreateUsuarioRequest request)
         {
             var command = new CreateUsuarioCommand(request);
@@ -33,8 +40,12 @@ namespace AgendaPro.Web.Controllers
             return BadRequest(result.Errors);
         }
 
-        [AllowAnonymous]
+        [SwaggerOperation(
+            Summary = "Login do usuário",
+            Description = "Login do usuário e geração do token de autenticação.")]
+        [SwaggerResponse(200, "Sucesso", typeof(Result<CreateUsuarioResponse>))]
         [HttpPost("login")]
+        [AllowAnonymous]        
         public async Task<IActionResult> Login([FromBody] CreateLoginRequest request)
         {
             var command = new CreateLoginCommand(request);
