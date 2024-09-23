@@ -19,8 +19,9 @@ namespace AgendaPro.Domain.Helpers
 
     public class Result
     {
-        public bool HasSuccess { get; protected set; }
+        public bool HasSuccess { get; set; }
         public bool HasError => !HasSuccess;
+        public string Message { get; set; }
         public IList<string> Errors { get; }
         public HttpStatusCode HttpStatusCode { get; set; }
         public DateTime DataRequisicao { get; set; }

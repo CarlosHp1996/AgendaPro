@@ -47,5 +47,17 @@ namespace AgendaPro.Infra.Repositories
 
             return new AsyncOutResult<IEnumerable<Evento>, int>(eventos, totalCount);
         }
+
+        public async Task<Evento> GetEventoById(Guid id)
+        {
+            var evento = _context.Eventos
+                .Include(x => x.Tarefas)
+                .Include(x => x.Lembretes)
+                .Where(x => x.Id == id)
+                .AsQueryable();
+
+            return await evento.FirstOrDefaultAsync();
+
+        }
     }
 }
