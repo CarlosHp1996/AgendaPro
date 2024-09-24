@@ -14,6 +14,8 @@ namespace AgendaPro.Application.Mapping
             CreateMap<Evento, EventoByIdResponse>();
             CreateMap<Tarefa, CreateTarefaResponse>(); 
             CreateMap<Lembrete, CreateLembreteResponse>();
+            CreateMap<Lembrete, LembreteResponse>();
+            CreateMap<Tarefa, TarefaResponse>();
         }
     }
 }

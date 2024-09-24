@@ -1,10 +1,10 @@
 ﻿using AgendaPro.Application.Interfaces;
 using AgendaPro.Application.Models.Responses.Eventos;
-using AgendaPro.Application.Models.Responses.Security;
+using AgendaPro.Application.Models.Responses.Lembretes;
+using AgendaPro.Application.Models.Responses.Tarefas;
 using AgendaPro.Domain.Entities;
 using AgendaPro.Domain.Entities.Security;
 using AgendaPro.Domain.Helpers;
-using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 
@@ -14,20 +14,18 @@ namespace AgendaPro.Application.Commands.Eventos.Handler
     {
         private readonly IEventoRepository _eventoRepository;
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly IMapper _mapper;
 
-        public CreateEventoCommandHandler(IEventoRepository eventoRepository, UserManager<ApplicationUser> userManager, IMapper mapper)
+        public CreateEventoCommandHandler(IEventoRepository eventoRepository, UserManager<ApplicationUser> userManager)
         {
             _eventoRepository = eventoRepository;
             _userManager = userManager;
-            _mapper = mapper;
         }
 
         public async Task<Result<EventoResponse>> Handle(CreateEventoCommand request, CancellationToken cancellationToken)
         {
             var result = new Result<EventoResponse>();
+            var user = await _userManager.FindByIdAsync(request.Request.UsuarioId);
 
-            var user = await _userManager.FindByIdAsync(request.Request.UsuarioId); // O id será pego através do get
             if (user == null)
             {
                 result.WithError("Usuário não encontrado.");
@@ -42,6 +40,7 @@ namespace AgendaPro.Application.Commands.Eventos.Handler
                 DataInicio = request.Request.DataInicio,
                 DataFim = request.Request.DataFim,
                 Local = request.Request.Local,
+
                 // Mapeando lembretes e tarefas a partir do request
                 Lembretes = request.Request.Lembretes.Select(lembrete => new Lembrete
                 {
@@ -56,25 +55,29 @@ namespace AgendaPro.Application.Commands.Eventos.Handler
             };
 
             var item = await _eventoRepository.AddAsync(evento);
-            //result.Value = _mapper.Map<CreateEventoResponse>(item);
-            //result.Count = 1;
-            //return result;
-
             var response = new EventoResponse
             {
-                Id = item.Id,
-                Titulo = item.Titulo,
-                Local = item.Local,
-                Descricao = item.Descricao,
-                DataInicio = item.DataInicio,
-                DataFim = item.DataFim
+                Id = evento.Id,
+                Titulo = evento.Titulo,
+                Local = evento.Local,
+                Descricao = evento.Descricao,
+                DataInicio = evento.DataInicio,
+                DataFim = evento.DataFim,
+                Tarefas = evento.Tarefas.Select(t => new TarefaResponse
+                {
+                    Nome = t.Nome,
+                    TarefaCompleta = t.TarefaCompleta
+                }).ToList(),
+                Lembretes = evento.Lembretes.Select(l => new LembreteResponse
+                {
+                    Descricao = l.Descricao,
+                    HoraLembrete = l.HoraLembrete
+                }).ToList()
             };
 
             result.Count = 1;
             result.Value = response;
             return result;
         }
-
     }
-
 }

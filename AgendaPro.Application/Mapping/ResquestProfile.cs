@@ -9,6 +9,7 @@ namespace AgendaPro.Application.Mapping
         public ResquestProfile() 
         {
             CreateMap<CreateEventoRequest, Evento>();
+            CreateMap<UpdateEventoRequest, Evento>();
         }
     }
 }
