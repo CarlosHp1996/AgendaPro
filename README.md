@@ -15,7 +15,7 @@
 
 ## 🔧 Padrões de Arquitetura utilizados
   <div style="display: inline_block">
-    DDD, MVC, CQRS, clean architecture  
+    DDD, MVC, CQRS, Clean Architecture  
 </div><br>
 
  ## 📝 Processo de desenvolvimento 
