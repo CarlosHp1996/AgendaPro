@@ -10,12 +10,12 @@
 
   ## 💻 Tecnologias Utilizadas
   <div style="display: inline_block">
-    C#, ASPNET Core, .Net 8.0, SQL Server, CSS, HTML    
+    C#, ASPNET Core, .Net 8.0, Entity Framework, MediatR, SQL Server, CSS, HTML    
 </div><br>
 
 ## 🔧 Padrões de Arquitetura utilizados
   <div style="display: inline_block">
-    DDD, MVC, CQRS  
+    DDD, MVC, CQRS, clean architecture  
 </div><br>
 
  ## 📝 Processo de desenvolvimento 
