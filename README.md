@@ -26,4 +26,5 @@
     4 - Criação da api de listar eventos com filtros opcionais, adicionando paginação, adicionando suporte a anotação do swagger, alterando o layout da pagina de criação de evento. ✅ <br><br>
     5 - Criação da api de listar eventos de acordo com o id + pequenos ajustes. ✅ <br><br>
     6 - Criação da api de editar evento e suas respectivas tarefas e lembretes + ajustes na api de criar evento. ✅ <br><br>
+    7 - Criação da api de excluir evento e suas respectivas tarefas e lembretes. ✅ <br><br>
 </div><br>
