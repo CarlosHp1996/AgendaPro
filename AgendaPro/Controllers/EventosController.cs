@@ -53,7 +53,7 @@ namespace AgendaPro.Web.Controllers
 
         [SwaggerOperation(
              Summary = "Listar todos os eventos de acordo com o id",
-             Description = "O 'Id' do evento é obrigatório")]
+             Description = "O 'Id' do evento é obrigatório.")]
         [SwaggerResponse(200, "Sucesso", typeof(Result<EventoByIdResponse>))]
         [HttpGet("{id}")]
         [AllowAnonymous]
@@ -67,13 +67,27 @@ namespace AgendaPro.Web.Controllers
 
         [SwaggerOperation(
           Summary = "Alterar evento",
-          Description = "O 'Id' do evento é obrigatório")]
+          Description = "O 'Id' do evento é obrigatório.")]
         [SwaggerResponse(200, "Sucesso", typeof(Result<EventoResponse>))]
         [HttpPut("{id}")]
         [AllowAnonymous]
         public async Task<IActionResult> Update(Guid id, [FromBody] UpdateEventoRequest request)
         {
             var command = new UpdateEventoCommand(id, request);
+            var response = await _mediator.Send(command);
+
+            return Ok(response);
+        }
+
+        [SwaggerOperation(
+            Summary = "Excluir evento",
+            Description = "O 'Id' do evento é obrigatório.")]
+        [SwaggerResponse(200, "Sucesso", typeof (Result<EventoResponse>))]
+        [HttpDelete("{id}")]
+        [AllowAnonymous]
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            var command = new DeleteEventoCommand(id);
             var response = await _mediator.Send(command);
 
             return Ok(response);
