@@ -10,12 +10,12 @@
 
   ## 💻 Tecnologias Utilizadas
   <div style="display: inline_block">
-    C#, ASPNET Core, .Net 8.0, SQL Server, CSS, HTML    
+    C#, ASPNET Core, .Net 8.0, Entity Framework, MediatR, SQL Server, CSS, HTML    
 </div><br>
 
 ## 🔧 Padrões de Arquitetura utilizados
   <div style="display: inline_block">
-    DDD, MVC, CQRS  
+    DDD, MVC, CQRS, Clean Architecture  
 </div><br>
 
  ## 📝 Processo de desenvolvimento 
@@ -25,4 +25,5 @@
     3 - Criação da api de cadastro de eventos, ajustes nas configurações de inicialização, criação de um repositório base genérico que define operações básicas de um CRUD para utilizar nos métodos padrões do projeto, mapeamento das requests e responses, refatoração das entidades, mapeando o relacionamento entre as entidades, foi necessário recriar as migrações para evitar conflitos. ✅ <br><br>
     4 - Criação da api de listar eventos com filtros opcionais, adicionando paginação, adicionando suporte a anotação do swagger, alterando o layout da pagina de criação de evento. ✅ <br><br>
     5 - Criação da api de listar eventos de acordo com o id + pequenos ajustes. ✅ <br><br>
+    6 - Criação da api de editar evento e suas respectivas tarefas e lembretes + ajustes na api de criar evento. ✅ <br><br>
 </div><br>
