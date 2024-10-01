@@ -92,5 +92,33 @@ namespace AgendaPro.Web.Controllers
 
             return Ok(response);
         }
+
+        [SwaggerOperation(
+            Summary = "Ativar evento",
+            Description = "O 'Id' do evento é obrigatório.")]
+        [SwaggerResponse(200, "Sucesso", typeof(Result<EventoResponse>))]
+        [HttpPut("{id}/ativar")]
+        [AllowAnonymous]
+        public async Task<IActionResult> Activate(Guid id)
+        {
+            var command = new ActivateEventoCommand(id);
+            var response = await _mediator.Send(command);
+
+            return Ok(response);
+        }
+
+        [SwaggerOperation(
+          Summary = "Desativar evento",
+          Description = "O 'Id' do evento é obrigatório.")]
+        [SwaggerResponse(200, "Sucesso", typeof(Result<EventoResponse>))]
+        [HttpPut("{id}/desativar")]
+        [AllowAnonymous]
+        public async Task<IActionResult> Desactive(Guid id)
+        {
+            var command = new DesactiveEventoCommand(id);
+            var response = await _mediator.Send(command);
+
+            return Ok(response);
+        }
     }
 }

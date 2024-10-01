@@ -12,6 +12,7 @@ namespace AgendaPro.Domain.Entities
         public string Local { get; set; }
         public Guid UsuarioId { get; set; }
         public AspNetUsers Usuario { get; set; }
+        public bool Ativo { get; set; }
         public List<Tarefa> Tarefas { get; set; } = new List<Tarefa>();
         public List<Lembrete> Lembretes { get; set; } = new List<Lembrete>();
     }

@@ -40,6 +40,7 @@ namespace AgendaPro.Application.Commands.Eventos.Handler
                 DataInicio = request.Request.DataInicio,
                 DataFim = request.Request.DataFim,
                 Local = request.Request.Local,
+                Ativo = true,
 
                 // Mapeando lembretes e tarefas a partir do request
                 Lembretes = request.Request.Lembretes.Select(lembrete => new Lembrete
