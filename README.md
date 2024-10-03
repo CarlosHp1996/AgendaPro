@@ -27,4 +27,5 @@
     5 - Criação da api de listar eventos de acordo com o id + pequenos ajustes. ✅ <br><br>
     6 - Criação da api de editar evento e suas respectivas tarefas e lembretes + ajustes na api de criar evento. ✅ <br><br>
     7 - Criação da api de excluir evento e suas respectivas tarefas e lembretes. ✅ <br><br>
+    8 - Criação das apis de ativar e desativar evento. ✅ <br><br>
 </div><br>
