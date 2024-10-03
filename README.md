@@ -28,4 +28,5 @@
     6 - Criação da api de editar evento e suas respectivas tarefas e lembretes + ajustes na api de criar evento. ✅ <br><br>
     7 - Criação da api de excluir evento e suas respectivas tarefas e lembretes. ✅ <br><br>
     8 - Criação das apis de ativar e desativar evento. ✅ <br><br>
+    9 - Implementando a criação da api de criar tarefas, melhorando o front, criando a pagina de login, implementando os arquivos js necessários para chamar as rotas no front, adicionando uma variável de ambiente localmente para a key do jwt token e removendo a key do projeto. ✅ <br><br>
 </div><br>
