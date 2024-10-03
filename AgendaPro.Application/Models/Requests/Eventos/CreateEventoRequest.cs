@@ -11,7 +11,7 @@ namespace AgendaPro.Application.Models.Requests.Eventos
         public DateTime DataInicio { get; set; }
         public DateTime DataFim { get; set; }
         public string Local { get; set; }
-        public List<CreateTarefaRequest> Tarefas { get; set; } = new List<CreateTarefaRequest>();
+        public List<TarefaRequest> Tarefas { get; set; } = new List<TarefaRequest>();
         public List<CreateLembreteRequest> Lembretes { get; set; } = new List<CreateLembreteRequest>();
     }
 }

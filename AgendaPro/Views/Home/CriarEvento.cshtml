@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criar Novo Evento</title>
+    <link rel="stylesheet" href="~/css/site.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Criar Novo Evento</h1>
+        <form id="eventoForm">
+            <input type="text" id="titulo" placeholder="Título" required>
+            <textarea id="descricao" placeholder="Descrição" required></textarea>
+            <input type="datetime-local" id="dataInicio" required>
+            <input type="datetime-local" id="dataFim" required>
+            <input type="text" id="local" placeholder="Local" required>
+
+            <h2>Tarefas</h2>
+            <div id="tarefas">
+                <div class="tarefa">
+                    <input type="text" placeholder="Nome da tarefa">
+                    <input type="checkbox">
+                </div>
+            </div>
+            <button type="button" id="adicionarTarefa">Adicionar Tarefa</button>
+
+            <h2>Lembretes</h2>
+            <div id="lembretes">
+                <div class="lembrete">
+                    <input type="text" placeholder="Descrição do lembrete">
+                    <input type="datetime-local">
+                </div>
+            </div>
+            <button type="button" id="adicionarLembrete">Adicionar Lembrete</button>
+
+            <button type="submit">Criar Evento</button>
+        </form>
+    </div>
+    <script src="~/js/evento.js"></script>
+</body>
+</html>

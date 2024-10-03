@@ -13,7 +13,12 @@ namespace AgendaPro.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        public IActionResult CriarEvento()
         {
             return View();
         }
