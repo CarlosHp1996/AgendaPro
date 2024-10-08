@@ -66,11 +66,13 @@ namespace AgendaPro.Application.Commands.Eventos.Handler
                 DataFim = evento.DataFim,
                 Tarefas = evento.Tarefas.Select(t => new TarefaResponse
                 {
+                    Id = t.Id,
                     Nome = t.Nome,
                     TarefaCompleta = t.TarefaCompleta
                 }).ToList(),
                 Lembretes = evento.Lembretes.Select(l => new LembreteResponse
                 {
+                    Id = l.Id,
                     Descricao = l.Descricao,
                     HoraLembrete = l.HoraLembrete
                 }).ToList()

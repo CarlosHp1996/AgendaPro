@@ -34,5 +34,19 @@ namespace AgendaPro.Web.Controllers
 
             return Ok(response);
         }
+
+        [SwaggerOperation(
+         Summary = "Alterar tarefa",
+         Description = "O 'Id' da tarefa é obrigatório.")]
+        [SwaggerResponse(200, "Sucesso", typeof(Result<TarefaResponse>))]
+        [HttpPut("{id}")]
+        [AllowAnonymous]
+        public async Task<IActionResult> Update(Guid id, [FromBody] UpdateTarefaRequest request)
+        {
+            var command = new UpdateTarefaCommand(id, request);
+            var response = await _mediator.Send(command);
+
+            return Ok(response);
+        }
     }
 }
