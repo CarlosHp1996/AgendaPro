@@ -22,15 +22,5 @@ namespace AgendaPro.Infra.Repositories
 
             return await tarefa.FirstOrDefaultAsync();
         }
-
-        public async Task<Tarefa> GetTarefaById(Guid id)
-        {
-            var tarefa = _context.Tarefas
-                .Include(x => x.Evento)
-                .Where(x => x.Id == id)
-                .AsQueryable();
-
-            return await tarefa.FirstOrDefaultAsync();
-        }
     }
 }

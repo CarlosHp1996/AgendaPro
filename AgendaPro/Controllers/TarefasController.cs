@@ -24,7 +24,7 @@ namespace AgendaPro.Web.Controllers
         [SwaggerOperation(
              Summary = "Criar Tarefas",
              Description = "Todos os campos são obrigatórios.")]
-        [SwaggerResponse(200, "Sucesso", typeof(Result<CreateTarefaResponse>))]
+        [SwaggerResponse(200, "Sucesso", typeof(Result<TarefaResponse>))]
         [HttpPost("create")]
         [AllowAnonymous]
         public async Task<IActionResult> Create(CreateTarefaRequest request)
@@ -36,7 +36,7 @@ namespace AgendaPro.Web.Controllers
         }
 
         [SwaggerOperation(
-         Summary = "Alterar tarefa",
+         Summary = "Alterar Tarefas",
          Description = "O 'Id' da tarefa é obrigatório.")]
         [SwaggerResponse(200, "Sucesso", typeof(Result<TarefaResponse>))]
         [HttpPut("{id}")]

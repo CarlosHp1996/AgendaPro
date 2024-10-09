@@ -5,7 +5,7 @@ using MediatR;
 
 namespace AgendaPro.Application.Commands.Tarefas
 {
-    public class CreateTarefaCommand : IRequest<Result<CreateTarefaResponse>>
+    public class CreateTarefaCommand : IRequest<Result<TarefaResponse>>
     {
         public CreateTarefaRequest Request;
 

@@ -17,9 +17,9 @@ namespace AgendaPro.Application.Commands.Tarefas.Handler
         public async Task<Result<TarefaResponse>> Handle(UpdateTarefaCommand request, CancellationToken cancellationToken)
         {
             var result = new Result<TarefaResponse>();
-            var tarefa = await _tarefaRepository.GetTarefaById(request.Id);
+            var tarefa = await _tarefaRepository.GetById(request.Id);
 
-            if (tarefa == null)
+            if (tarefa is null)
             {
                 result.WithError("Tarefa não encontrada.");
                 return result;

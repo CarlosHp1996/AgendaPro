@@ -6,7 +6,7 @@ using MediatR;
 
 namespace AgendaPro.Application.Commands.Tarefas.Handler
 {
-    public class CreateTarefaCommandHandler : IRequestHandler<CreateTarefaCommand, Result<CreateTarefaResponse>>
+    public class CreateTarefaCommandHandler : IRequestHandler<CreateTarefaCommand, Result<TarefaResponse>>
     {
         private readonly ITarefaRepository _tarefaRepository;
 
@@ -15,33 +15,44 @@ namespace AgendaPro.Application.Commands.Tarefas.Handler
             _tarefaRepository = tarefaRepository;
         }
 
-        public async Task<Result<CreateTarefaResponse>> Handle(CreateTarefaCommand request, CancellationToken cancellationToken)
+        public async Task<Result<TarefaResponse>> Handle(CreateTarefaCommand request, CancellationToken cancellationToken)
         {
-            var result = new Result<CreateTarefaResponse>();
-            var evento = await _tarefaRepository.GetTarefaByEventoId(request.Request.EventoId);
+            var result = new Result<TarefaResponse>();
 
-            if (evento == null)
-            {
-                result.WithError("Evento não encontrado.");
-                return result;
+            try
+            {                
+                var tarefaId = await _tarefaRepository.GetTarefaByEventoId(request.Request.EventoId);
+
+                if (tarefaId == null)
+                {
+                    result.WithError("Evento não encontrado.");
+                    return result;
+                }
+
+                var tarefa = new Tarefa()
+                {
+                    Nome = request.Request.Nome,
+                    EventoId = request.Request.EventoId,
+                    TarefaCompleta = request.Request.TarefaCompleta
+                };
+
+                _ = await _tarefaRepository.AddAsync(tarefa);
+
+                var response = new TarefaResponse
+                {
+                    Id = tarefa.Id,
+                    Nome = tarefa.Nome,
+                    TarefaCompleta = tarefa.TarefaCompleta
+                };
+
+                result.Value = response;
             }
-
-            var tarefa = new Tarefa()
+            catch (Exception)
             {
-                Nome = request.Request.Nome,
-                EventoId = request.Request.EventoId,
-                TarefaCompleta = request.Request.TarefaCompleta
-            };
 
-            var item = await _tarefaRepository.AddAsync(tarefa);
-            var response = new CreateTarefaResponse
-            {
-                Id = tarefa.Id,
-                Nome = tarefa.Nome,
-                TarefaCompleta = tarefa.TarefaCompleta
-            };
-
-            result.Value = response;
+                throw;
+            }
+            
             return result;
         }
     }
