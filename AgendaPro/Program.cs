@@ -1,4 +1,6 @@
 using AgendaPro.Application.Interfaces;
+using AgendaPro.Application.Services.Interfaces;
+using AgendaPro.Application.Services;
 using AgendaPro.Domain.Entities.Security;
 using AgendaPro.Domain.Security;
 using AgendaPro.Infra.Data;
@@ -39,6 +41,14 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole<Guid>>(options =>
     .AddEntityFrameworkStores<AppDbContext>()
     .AddDefaultTokenProviders();
 
+// Carregar a chave da API OpenAI de variáveis de ambiente
+var openAiKey = Environment.GetEnvironmentVariable("OPENAI_KEY");
+
+if (string.IsNullOrEmpty(openAiKey))
+{
+    throw new InvalidOperationException("A chave de API do OpenAI não foi configurada. Defina a variável de ambiente 'OPENAI_API_KEY'.");
+}
+
 // Carregar as chaves JWT de variáveis de ambiente
 var jwtKey = Environment.GetEnvironmentVariable("JWT_KEY");
 var jwtIssuer = builder.Configuration["Jwt:Issuer"];
@@ -77,6 +87,9 @@ builder.Services.AddAuthorization(auth =>
         .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
         .RequireAuthenticatedUser().Build());
 });
+
+// Registra o serviço de OpenAI
+builder.Services.AddScoped<IOpenAIService, OpenAIService>(provider => new OpenAIService(openAiKey));
 
 // Adiciona o Swagger
 builder.Services.AddEndpointsApiExplorer();
