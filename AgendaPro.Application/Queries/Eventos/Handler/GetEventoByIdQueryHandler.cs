@@ -16,12 +16,12 @@ namespace AgendaPro.Application.Queries.Eventos.Handler
             _mapper = mapper;
         }
 
-        public async Task<Result<EventoByIdResponse>> Handle(GetEventoByIdQuery request, CancellationToken cancellationToken)
+        public async Task<Result<EventoByIdResponse>> Handle(GetEventoByIdQuery query, CancellationToken cancellationToken)
         {
             try
             {
                 var result = new Result<EventoByIdResponse>();
-                var evento = await _eventoRepository.GetEventoById(request.Id);
+                var evento = await _eventoRepository.GetEventoById(query.Id);
 
                 result.Value = _mapper.Map<EventoByIdResponse>(evento);
                 result.Count = 1;

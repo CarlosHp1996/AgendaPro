@@ -39,7 +39,7 @@ namespace AgendaPro.Web.Controllers
 
         [SwaggerOperation(
              Summary = "Listar todos os eventos",
-             Description = "Listar todos os eventos de forma paginada.")]
+             Description = "Lista todos os eventos de forma paginada.")]
         [SwaggerResponse(200, "Sucesso", typeof(Result<EventoResponse>))]
         [HttpGet]
         [AllowAnonymous]        
