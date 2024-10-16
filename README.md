@@ -31,4 +31,5 @@
     9 - Criação da api de criar tarefas, melhorando o front, criando a pagina de login, implementando os arquivos js necessários para chamar as rotas no front, adicionando uma variável de ambiente localmente para a key do jwt token e removendo a key do projeto. ✅ <br><br>
     10 - Criação da api de alterar tarefa. ✅ <br><br>
     11 - Criação das apis de criar e alterar lembrete + ajustes. ✅ <br><br>
+    12 - Implementação do ChatGPT no projeto e criação da api para interagir com o ChatGPT ✅ <br><br>
 </div><br>
