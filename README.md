@@ -32,4 +32,5 @@
     10 - Criação da api de alterar tarefa. ✅ <br><br>
     11 - Criação das apis de criar e alterar lembrete + ajustes. ✅ <br><br>
     12 - Implementação do ChatGPT no projeto e criação da api para interagir com o ChatGPT ✅ <br><br>
+    13 - Criação das apis de listar tarefas (implementação de paginação e filtros), listar tarefas por id e excluir tarefas + pequenos ajustes ✅ <br><br>
 </div><br>
