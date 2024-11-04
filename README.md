@@ -33,5 +33,5 @@
     11 - Criação das apis de criar e alterar lembrete + ajustes. ✅ <br><br>
     12 - Implementação do ChatGPT no projeto e criação da api para interagir com o ChatGPT ✅ <br><br>
     13 - Criação das apis de listar tarefas (implementação de paginação e filtros), listar tarefas por id e excluir tarefas + pequenos ajustes ✅ <br><br>
-    14 - Criação das apis de listar lembretes (implementação de paginação e filtros), listar lembretes por id e excluir lembretes + pequenos ajustes ✅ <br><br>
+    14 - Criação das apis de listar lembretes (implementação de paginação e filtros), listar lembretes por id e excluir lembretes ✅ <br><br>
 </div><br>
